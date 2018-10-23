@@ -4,17 +4,14 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="735.0" prefWidth="1279.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainViewController">
+<AnchorPane prefHeight="735.0" prefWidth="1279.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainViewController">
    <children>
-      <JFXTextArea fx:id="inputTextArea" layoutX="33.0" layoutY="86.0" prefHeight="499.0" prefWidth="580.0" />
-      <JFXTextArea fx:id="outputTextArea" layoutX="648.0" layoutY="86.0" prefHeight="499.0" prefWidth="580.0" />
+      <JFXTextArea fx:id="inputTextArea" labelFloat="true" layoutX="33.0" layoutY="86.0" prefHeight="499.0" prefWidth="580.0" promptText="Input text" styleClass="text-area" stylesheets="@../css/main.css" />
+      <JFXTextArea fx:id="outputTextArea" editable="false" labelFloat="true" layoutX="648.0" layoutY="86.0" prefHeight="499.0" prefWidth="580.0" promptText="Output text" />
       <ChoiceBox fx:id="taskChoiceBox" layoutX="33.0" layoutY="618.0" prefHeight="31.0" prefWidth="188.0" />
       <JFXButton fx:id="executeButton" buttonType="RAISED" layoutX="851.0" layoutY="603.0" onAction="#executeButtonClicked" prefHeight="61.0" prefWidth="129.0" text="Execute" />
-      <Label alignment="CENTER" layoutX="174.0" layoutY="29.0" prefHeight="47.0" prefWidth="174.0" text="INPUT TEXT" />
-      <Label alignment="CENTER" layoutX="851.0" layoutY="39.0" prefHeight="47.0" prefWidth="174.0" text="OUTPUT TEXT" />
-      <JFXTextField fx:id="keyTextField" layoutX="255.0" layoutY="619.0" prefHeight="29.0" prefWidth="386.0" />
+      <JFXTextField fx:id="keyTextField" labelFloat="true" layoutX="255.0" layoutY="619.0" prefHeight="29.0" prefWidth="386.0" promptText="Encryption key" styleClass="textField" stylesheets="@../css/main.css" />
    </children>
 </AnchorPane>

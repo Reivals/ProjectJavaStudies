@@ -14,10 +14,11 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author Michal on 22.10.2018
+ * Main application controller (load as first)
  */
 @Component
 public class MainViewController implements IController {
-
+    // initialize list of options which will be injected into view (choiceBox)
     private static ObservableList<String> choiceBoxList;
 
     static{
@@ -26,6 +27,9 @@ public class MainViewController implements IController {
 
     private VigenereAlgorithm vigenereAlgorithm;
 
+    /*
+     * Fields injected by FXMLLoader
+     */
     @FXML
     private JFXTextArea inputTextArea;
 
@@ -67,12 +71,19 @@ public class MainViewController implements IController {
 
     }
 
+    /*
+     * Inherited from IController
+     * this method is being invoked each time when MainViewController is created by FXMLLoader
+     */
     public void initialize() {
         taskChoiceBox.setItems(choiceBoxList);
         taskChoiceBox.getSelectionModel().selectFirst();
     }
 
-    public void displayAlert(String header, String message, Alert.AlertType alertType){
+    /*
+     * Exception handler - method which take care about exceptions
+     */
+    private void displayAlert(String header, String message, Alert.AlertType alertType){
         Alert alert = new Alert(alertType);
         alert.setHeaderText(header);
         alert.setContentText(message);

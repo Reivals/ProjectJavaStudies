@@ -5,5 +5,8 @@ package model;
  */
 public interface Decryptable {
 
+    /*
+     * template of method which will take care about decrypting text
+     */
     String decrypt(String text, String key) throws CharacterNotFoundException;
 }

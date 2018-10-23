@@ -16,13 +16,23 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = {"model", "controller"})
 public class Main extends Application {
 
+    //Spring context
     private ConfigurableApplicationContext context;
+    //Loader fxml file
     private Parent rootNode;
 
+    /*
+    ARGUMENTS FROM MAIN METHOD ARE NOT USED ANYWHERE,
+    I'VE PLACED THEM JUST FOR KEEPING WITH JAVA SYNTAX
+     */
     public static void main(String args[]){
         launch(args);
     }
 
+    /*
+     * Method from from JavaFx
+     * Initialize Spring Container + inject controller into view
+     */
     @Override
     public void init() throws Exception {
         SpringApplicationBuilder builder = new SpringApplicationBuilder(Main.class);
@@ -32,7 +42,10 @@ public class Main extends Application {
         rootNode = loader.load();
     }
 
-    public void start(Stage stage) throws Exception {
+    /*
+     * Method invoked after container starts
+     */
+    public void start(Stage stage) {
         Scene scene = new Scene(rootNode);
         stage.setScene(scene);
         stage.setTitle("Projekt JAVA - Michał Karkowski");

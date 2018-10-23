@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:properties/spring.properties")
 public class VigenereAlgorithm implements Encryptable,Decryptable{
 
+
+    //Value of alphabet injected from spring.properties (allow dynamically change alphabet)
     @Value("${encryption.alphabet}")
     private String table;
 

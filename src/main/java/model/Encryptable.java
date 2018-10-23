@@ -5,5 +5,8 @@ package model;
  */
 public interface Encryptable {
 
+    /*
+     * template of method which will take care about encrypting text
+     */
     String encrypt(String text,String key) throws CharacterNotFoundException;
 }
