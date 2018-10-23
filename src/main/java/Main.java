@@ -10,8 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author Michal on 22.10.2018
+ * @version 1.0
  */
-
 @SpringBootApplication
 @ComponentScan(basePackages = {"model", "controller"})
 public class Main extends Application {
@@ -29,7 +29,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    /*
+    /**
      * Method from from JavaFx
      * Initialize Spring Container + inject controller into view
      */
@@ -42,7 +42,7 @@ public class Main extends Application {
         rootNode = loader.load();
     }
 
-    /*
+    /**
      * Method invoked after container starts
      */
     public void start(Stage stage) {

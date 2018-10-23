@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author Michal on 22.10.2018
+ * @version 1.0
  * Main application controller (load as first)
  */
 @Component
@@ -49,6 +50,9 @@ public class MainViewController implements IController {
         this.vigenereAlgorithm = vigenereAlgorithm;
     }
 
+    /**
+     * Method invoked when execute button is clicked
+     */
     @FXML
     void executeButtonClicked() {
         if(taskChoiceBox.getSelectionModel().getSelectedItem().equals("Encrypt")){
@@ -71,7 +75,7 @@ public class MainViewController implements IController {
 
     }
 
-    /*
+    /**
      * Inherited from IController
      * this method is being invoked each time when MainViewController is created by FXMLLoader
      */
@@ -80,7 +84,7 @@ public class MainViewController implements IController {
         taskChoiceBox.getSelectionModel().selectFirst();
     }
 
-    /*
+    /**
      * Exception handler - method which take care about exceptions
      */
     private void displayAlert(String header, String message, Alert.AlertType alertType){

@@ -1,14 +1,13 @@
 package model;
 
 
-import javafx.scene.control.Alert;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
  * @author Michal on 22.10.2018
+ * @version 1.0
  */
 @Component
 @PropertySource("classpath:properties/spring.properties")
