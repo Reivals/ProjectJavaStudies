@@ -11,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 /**
  * @author Michal on 22.10.2018
  * @version 1.0
+ * Startup of application
  */
 @SpringBootApplication
 @ComponentScan(basePackages = {"model", "controller"})
@@ -44,6 +45,7 @@ public class Main extends Application {
 
     /**
      * Method invoked after container starts
+     * @param
      */
     public void start(Stage stage) {
         Scene scene = new Scene(rootNode);

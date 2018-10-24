@@ -8,6 +8,9 @@ import javafx.fxml.FXML;
  */
 public interface IController {
 
+    /**
+     * Method is being invoked each time when controller is instantiated by FXMLloader
+     */
     @FXML
     void initialize();
 }

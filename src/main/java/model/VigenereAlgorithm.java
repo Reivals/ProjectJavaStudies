@@ -8,13 +8,15 @@ import org.springframework.stereotype.Component;
 /**
  * @author Michal on 22.10.2018
  * @version 1.0
+ * Implementation of Vigenere algorithm
  */
 @Component
 @PropertySource("classpath:properties/spring.properties")
 public class VigenereAlgorithm implements Encryptable,Decryptable{
 
-
-    //Value of alphabet injected from spring.properties (allow dynamically change alphabet)
+    /**
+     * Value of alphabet injected from spring.properties (allow dynamically change alphabet)
+     */
     @Value("${encryption.alphabet}")
     private String table;
 
@@ -41,6 +43,10 @@ public class VigenereAlgorithm implements Encryptable,Decryptable{
         return decrypted.toString();
     }
 
+    /**
+     * @param text
+     * @return Returns formatted text for the Vigenere algorithm
+     */
     private String formatTextToProperForm(String text) throws CharacterNotFoundException {
         text = text.replaceAll("\n", "");
         for(int x = 0; x < text.length(); x++)

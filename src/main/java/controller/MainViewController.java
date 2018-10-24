@@ -28,21 +28,33 @@ public class MainViewController implements IController {
 
     private VigenereAlgorithm vigenereAlgorithm;
 
-    /*
-     * Fields injected by FXMLLoader
+    /**
+     * Input text area where user enter his message
      */
     @FXML
     private JFXTextArea inputTextArea;
 
+    /**
+     * Output text area where output is displayed
+     */
     @FXML
     private JFXTextArea outputTextArea;
 
+    /**
+     * Choice box where you can select which action to perform
+     */
     @FXML
     private ChoiceBox<String> taskChoiceBox;
 
+    /**
+     * Choice box where you can select which action to perform
+     */
     @FXML
     private JFXTextField keyTextField;
 
+    /**
+     * Button, when pressed it encrypt/decode message
+     */
     @FXML
     private JFXButton executeButton;
 
@@ -75,10 +87,6 @@ public class MainViewController implements IController {
 
     }
 
-    /**
-     * Inherited from IController
-     * this method is being invoked each time when MainViewController is created by FXMLLoader
-     */
     public void initialize() {
         taskChoiceBox.setItems(choiceBoxList);
         taskChoiceBox.getSelectionModel().selectFirst();
@@ -86,6 +94,9 @@ public class MainViewController implements IController {
 
     /**
      * Exception handler - method which take care about exceptions
+     * @param header Header for alert
+     * @param message Message inside alert
+     * @param alertType Type of alert which should be displayed eg. ERROR
      */
     private void displayAlert(String header, String message, Alert.AlertType alertType){
         Alert alert = new Alert(alertType);
