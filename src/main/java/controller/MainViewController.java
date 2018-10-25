@@ -3,14 +3,21 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import model.CharacterNotFoundException;
+import model.HistoryOfEncryptions;
 import model.VigenereAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 /**
  * @author Michal on 22.10.2018
@@ -26,7 +33,11 @@ public class MainViewController implements IController {
         choiceBoxList = FXCollections.observableArrayList("Encrypt", "Decrypt");
     }
 
+    @Autowired
     private VigenereAlgorithm vigenereAlgorithm;
+
+    @Autowired
+    private HistoryOfEncryptions historyOfEncryptions;
 
     /**
      * Input text area where user enter his message
@@ -58,9 +69,16 @@ public class MainViewController implements IController {
     @FXML
     private JFXButton executeButton;
 
-    public MainViewController(VigenereAlgorithm vigenereAlgorithm) {
-        this.vigenereAlgorithm = vigenereAlgorithm;
-    }
+    @FXML
+    private TableView<Map.Entry<String, String>> historyTableView;
+
+    @FXML
+    private TableColumn<Map.Entry<String, String>, String> textColumn;
+
+    @FXML
+    private TableColumn<Map.Entry<String, String>, String> keyColumn;
+
+    ObservableList<Map.Entry<String, String>> items;
 
     /**
      * Method invoked when execute button is clicked
@@ -71,6 +89,7 @@ public class MainViewController implements IController {
             if(inputTextArea.getText()!= null && keyTextField!=null && !inputTextArea.getText().equals("") && !keyTextField.getText().equals("")){
                 try {
                     outputTextArea.setText(vigenereAlgorithm.encrypt(inputTextArea.getText(),keyTextField.getText()));
+                    updateHistory();
                 } catch (CharacterNotFoundException e) {
                     displayAlert("ERROR","Invalid characters", Alert.AlertType.ERROR);
                 }
@@ -79,6 +98,7 @@ public class MainViewController implements IController {
             if(inputTextArea.getText()!= null && keyTextField!=null && !inputTextArea.getText().equals("") && !keyTextField.getText().equals("")){
                 try {
                     outputTextArea.setText(vigenereAlgorithm.decrypt(inputTextArea.getText(),keyTextField.getText()));
+                    updateHistory();
                 } catch (CharacterNotFoundException e) {
                     displayAlert("ERROR","Invalid characters", Alert.AlertType.ERROR);
                 }
@@ -90,6 +110,10 @@ public class MainViewController implements IController {
     public void initialize() {
         taskChoiceBox.setItems(choiceBoxList);
         taskChoiceBox.getSelectionModel().selectFirst();
+        textColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
+        keyColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
+        items = FXCollections.observableArrayList(historyOfEncryptions.getHistory().entrySet());
+        historyTableView.setItems(items);
     }
 
     /**
@@ -104,4 +128,15 @@ public class MainViewController implements IController {
         alert.setContentText(message);
         alert.show();
     }
+
+    /**
+     * Update tableView with newly added history
+     */
+    private void updateHistory(){
+        items.clear();
+        historyOfEncryptions.addToHistory(outputTextArea.getText(), keyTextField.getText());
+        items = FXCollections.observableArrayList(historyOfEncryptions.getHistory().entrySet());
+        historyTableView.setItems(items);
+    }
+
 }

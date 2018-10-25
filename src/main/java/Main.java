@@ -17,14 +17,18 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = {"model", "controller"})
 public class Main extends Application {
 
-    //Spring context
+    /**
+     * Spring context, used only for injection into classes
+     */
     private ConfigurableApplicationContext context;
-    //Loader fxml file
+    /**
+     * Root element of view injected into scene
+     */
     private Parent rootNode;
 
-    /*
-    ARGUMENTS FROM MAIN METHOD ARE NOT USED ANYWHERE,
-    I'VE PLACED THEM JUST FOR KEEPING WITH JAVA SYNTAX
+    /**
+     * Starting app method
+     * @param args
      */
     public static void main(String args[]){
         launch(args);
