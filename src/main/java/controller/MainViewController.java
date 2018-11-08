@@ -3,6 +3,7 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import model.HistoryOfEncryptions;
 import model.VigenereAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Map;
 
@@ -25,6 +27,7 @@ import java.util.Map;
  * Main application controller (load as first)
  */
 @Component
+@Validated
 public class MainViewController implements IController {
     // initialize list of options which will be injected into view (choiceBox)
     /**
@@ -84,7 +87,7 @@ public class MainViewController implements IController {
     @FXML
     void executeButtonClicked() {
         if(taskChoiceBox.getSelectionModel().getSelectedItem().equals("Encrypt")){
-            if(inputTextArea.getText()!= null && keyTextField!=null && !inputTextArea.getText().equals("") && !keyTextField.getText().equals("")){
+            if(inputTextArea.getText()!= null && keyTextField!=null && !inputTextArea.getText().isEmpty() && !keyTextField.getText().isEmpty()){
                 try {
                     outputTextArea.setText(vigenereAlgorithm.encrypt(inputTextArea.getText(),keyTextField.getText()));
                     updateHistory();
@@ -93,14 +96,14 @@ public class MainViewController implements IController {
                 }
             }
         } else{
-            if(inputTextArea.getText()!= null && keyTextField!=null && !inputTextArea.getText().equals("") && !keyTextField.getText().equals("")){
+            if(inputTextArea.getText()!= null && keyTextField!=null && !inputTextArea.getText().isEmpty() && !keyTextField.getText().isEmpty()){
                 try {
                     outputTextArea.setText(vigenereAlgorithm.decrypt(inputTextArea.getText(),keyTextField.getText()));
                     updateHistory();
                 } catch (CharacterNotFoundException e) {
                     displayAlert("ERROR","Invalid characters", Alert.AlertType.ERROR);
                 }
-            }
+           }
         }
 
     }
@@ -132,9 +135,13 @@ public class MainViewController implements IController {
      */
     private void updateHistory(){
         items.clear();
-        historyOfEncryptions.addToHistory(outputTextArea.getText(), keyTextField.getText());
-        items = FXCollections.observableArrayList(historyOfEncryptions.getHistory().entrySet());
-        historyTableView.setItems(items);
+        try {
+            historyOfEncryptions.addToHistory(outputTextArea.getText(), keyTextField.getText());
+            items = FXCollections.observableArrayList(historyOfEncryptions.getHistory().entrySet());
+            historyTableView.setItems(items);
+        } catch (InvalidArgumentException e) {
+            displayAlert("ERROR",e.getRealMessage(),Alert.AlertType.ERROR);
+        }
     }
 
 }

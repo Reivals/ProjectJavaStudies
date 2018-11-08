@@ -3,14 +3,6 @@ package model;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
@@ -19,6 +11,8 @@ import static org.junit.Assert.*;
  * @author Michal on 29.10.2018
  */
 @RunWith(SpringRunner.class)
+@TesterInfo(createdBy = "Michal Karkowski",
+            lastModified = "09/11/2018")
 public class VigenereAlgorithmTest {
 
     private static VigenereAlgorithm vigenereAlgorithm;
@@ -48,6 +42,26 @@ public class VigenereAlgorithmTest {
     @Test(expected = CharacterNotFoundException.class)
     public void decrypt_WITH_INCORRECT_DATA() throws CharacterNotFoundException {
         assertEquals(vigenereAlgorithm.decrypt("漢字","abc"),"abc");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void decrypt_WITH_EMPTY_TEXT_STRING_PASSED() throws CharacterNotFoundException, IllegalArgumentException {
+        assertEquals(vigenereAlgorithm.decrypt("","abc"),"");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void decrypt_WITH_EMPTY_KEY_STRING_PASSED() throws CharacterNotFoundException, IllegalArgumentException {
+        assertEquals(vigenereAlgorithm.decrypt("abc",""),"");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void decrypt_WITH_NULL_KEY_STRING_PASSED() throws CharacterNotFoundException, IllegalArgumentException {
+        assertEquals(vigenereAlgorithm.decrypt(null,""),"");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void decrypt_WITH_NULL_TEXT_STRING_PASSED() throws CharacterNotFoundException, IllegalArgumentException {
+        assertEquals(vigenereAlgorithm.decrypt("abc",null),"");
     }
 
 }

@@ -1,5 +1,6 @@
 package model;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import org.springframework.stereotype.Component;
@@ -23,8 +24,12 @@ public class HistoryOfEncryptions {
      * @param text text which was encrypted
      * @param key key which was used for encryption
      */
-    public void addToHistory(String text, String key){
-        history.put(key,text);
+    public void addToHistory(String text, String key) throws InvalidArgumentException {
+        if(key!=null && text != null && !text.isEmpty() && !key.isEmpty()){
+            history.put(key,text);
+        } else{
+            throw new InvalidArgumentException(new String[]{"Wrong parameters passed!"});
+        }
     }
 
     public ObservableMap<String, String> getHistory() {
