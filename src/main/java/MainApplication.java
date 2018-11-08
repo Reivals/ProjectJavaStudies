@@ -15,7 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @ComponentScan(basePackages = {"model", "controller"})
-public class Main extends Application {
+public class MainApplication extends Application {
 
     /**
      * Spring context, used only for injection into classes
@@ -28,7 +28,7 @@ public class Main extends Application {
 
     /**
      * Starting app method
-     * @param args
+     * @param args arguments which are passed by console for the application - they are not being used in this program
      */
     public static void main(String args[]){
         launch(args);
@@ -40,7 +40,7 @@ public class Main extends Application {
      */
     @Override
     public void init() throws Exception {
-        SpringApplicationBuilder builder = new SpringApplicationBuilder(Main.class);
+        SpringApplicationBuilder builder = new SpringApplicationBuilder(MainApplication.class);
         context = builder.run(getParameters().getRaw().toArray(new String[0]));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/mainView.fxml"));
         loader.setControllerFactory(context::getBean);
@@ -49,7 +49,7 @@ public class Main extends Application {
 
     /**
      * Method invoked after container starts
-     * @param
+     * @param stage Parent representing firstly displayed stage
      */
     public void start(Stage stage) {
         Scene scene = new Scene(rootNode);

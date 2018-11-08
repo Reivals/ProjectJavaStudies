@@ -27,6 +27,10 @@ import java.util.Map;
 @Component
 public class MainViewController implements IController {
     // initialize list of options which will be injected into view (choiceBox)
+    /**
+     * List of Strings which represents functions which can be invoked in program
+     * List is being inject into ChoiceBox
+     */
     private static ObservableList<String> choiceBoxList;
 
     static{
@@ -63,12 +67,6 @@ public class MainViewController implements IController {
     @FXML
     private JFXTextField keyTextField;
 
-    /**
-     * Button, when pressed it encrypt/decode message
-     */
-    @FXML
-    private JFXButton executeButton;
-
     @FXML
     private TableView<Map.Entry<String, String>> historyTableView;
 
@@ -78,7 +76,7 @@ public class MainViewController implements IController {
     @FXML
     private TableColumn<Map.Entry<String, String>, String> keyColumn;
 
-    ObservableList<Map.Entry<String, String>> items;
+    private ObservableList<Map.Entry<String, String>> items;
 
     /**
      * Method invoked when execute button is clicked

@@ -17,7 +17,7 @@ public class HistoryOfEncryptions {
      * Contains only one key per message.
      * If user will try to encode another massage with the same key, last value will be replaced
      */
-    private ObservableMap<String,String> history = FXCollections.observableHashMap();
+    private final ObservableMap<String,String> history = FXCollections.observableHashMap();
 
     /**
      * @param text text which was encrypted
